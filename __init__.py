@@ -1,2 +1,2 @@
-import model
+import models
 import wizard
