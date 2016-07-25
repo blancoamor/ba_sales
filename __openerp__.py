@@ -6,7 +6,7 @@
     'data': [
 	#'security/ir.model.access.csv',
 	#'security/security.xml',
-	'wizard/wizard_view.xml'
+	'wizard/wizard_view.xml',
 	'sale_view.xml',
 	'ba_data.xml',
     ],
