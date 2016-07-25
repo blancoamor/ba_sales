@@ -17,5 +17,11 @@ class sale_order(models.Model):
 	@api.model
 	def _cancel_sale_orders(self):
 		orders = self.search([('state','=','draft')])
+		import pdb;pdb.set_trace()
 		for order in orders:
-			import pdb;pdb.set_trace()
+			order_date = fields.Datetime.from_string(order.date_order)
+			today = datetime.now()
+			difference = today - order_date 
+			if (difference.seconds / 60) > 30:
+				# Cancels order
+				order.action_cancel()
