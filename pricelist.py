@@ -55,12 +55,15 @@ class product_pricelist(osv.osv):
         if not version:
             raise osv.except_osv(_('Warning!'), _("At least one pricelist has no active version !\nPlease create or activate one."))
         categ_ids = {}
+	supplier_ids = {}
         for p in products:
             categ = p.categ_id
+	    supplier_ids[p.supplier_id.id] = True
             while categ:
                 categ_ids[categ.id] = True
                 categ = categ.parent_id
         categ_ids = categ_ids.keys()
+	supplier_ids = supplier_ids.keys()
 
         is_product_template = products[0]._name == "product.template"
         if is_product_template:
@@ -73,15 +76,27 @@ class product_pricelist(osv.osv):
             prod_tmpl_ids = [product.product_tmpl_id.id for product in products]
 
         # Load all rules
-        cr.execute(
-            'SELECT i.id '
-            'FROM product_pricelist_item AS i '
-            'WHERE (product_tmpl_id IS NULL OR product_tmpl_id = any(%s)) '
-                'AND (product_id IS NULL OR (product_id = any(%s))) '
-                'AND ((categ_id IS NULL) OR (categ_id = any(%s))) '
-                'AND (price_version_id = %s) '
-            'ORDER BY sequence, min_quantity desc',
-            (prod_tmpl_ids, prod_ids, categ_ids, version.id))
+	if supplier_ids and supplier_ids[0]:
+	        cr.execute(
+        	    'SELECT i.id '
+	            'FROM product_pricelist_item AS i '
+        	    'WHERE (product_tmpl_id IS NULL OR product_tmpl_id = any(%s)) '
+                	'AND (product_id IS NULL OR (product_id = any(%s))) '
+	                'AND ((categ_id IS NULL) OR (categ_id = any(%s))) '
+	                'AND ((supplier_id IS NULL) OR (supplier_id = any(%s))) '
+        	        'AND (price_version_id = %s) '
+	            'ORDER BY sequence, min_quantity desc',
+        	    (prod_tmpl_ids, prod_ids, categ_ids, supplier_ids, version.id))
+	else:
+	        cr.execute(
+        	    'SELECT i.id '
+	            'FROM product_pricelist_item AS i '
+        	    'WHERE (product_tmpl_id IS NULL OR product_tmpl_id = any(%s)) '
+                	'AND (product_id IS NULL OR (product_id = any(%s))) '
+	                'AND ((categ_id IS NULL) OR (categ_id = any(%s))) '
+        	        'AND (price_version_id = %s) '
+	            'ORDER BY sequence, min_quantity desc',
+        	    (prod_tmpl_ids, prod_ids, categ_ids, version.id))
         
         item_ids = [x[0] for x in cr.fetchall()]
         items = self.pool.get('product.pricelist.item').browse(cr, uid, item_ids, context=context)
@@ -133,6 +148,11 @@ class product_pricelist(osv.osv):
                         cat = cat.parent_id
                     if not cat:
                         continue
+
+                if rule.supplier_id:
+                    if product.supplier_id.id != rule.supplier_id.id:
+                        continue
+
 
                 if rule.base == -1:
                     if rule.base_pricelist_id:

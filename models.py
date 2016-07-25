@@ -37,7 +37,7 @@ class product_product(models.Model):
 
 	supplier_id = fields.Many2one('res.partner',string='Proveedor Principal',compute=_compute_supplier_id)
 
-class product_pricelist(models.Model):
-	_inherit = 'product.pricelist'
+class product_pricelist_item(models.Model):
+	_inherit = 'product.pricelist.item'
 
 	supplier_id = fields.Many2one('res.partner',string='Proveedor',domain=[('supplier','=',True)])
