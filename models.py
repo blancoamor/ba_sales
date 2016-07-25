@@ -7,6 +7,7 @@ import openerp.addons.decimal_precision as dp
 import logging
 import datetime
 from openerp.fields import Date as newdate
+from datetime import datetime
 
 #Get the logger
 _logger = logging.getLogger(__name__)
