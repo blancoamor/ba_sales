@@ -20,14 +20,14 @@ class product_update_prices(models.TransientModel):
 
 	@api.multi
 	def update_costs(self):
-		import pdb;pdb.set_trace()
-		if not self.categ_id and not self.supplier_id and not product_id:
+		if not self.categ_id and not self.supplier_id and not self.product_id:
 			raise ValidationError("Debe ingresar al menos un parametro de actualizacion")
 		if self.list_price_update < 0 or self.list_price_update > 100:
 			raise ValidationError("El precio de venta a ingresar solo puede ser aumentando entre un 0% y 100%")
 		if self.cost_price_update < 0 or self.cost_price_update > 100:
 			raise ValidationError("El costo a ingresar solo puede ser aumentando entre un 0% y 100%")
 		domain = []
+		import pdb;pdb.set_trace()
 		if self.categ_id:
 			domain.append(('categ_id','=',self.categ_id.id))
 		if self.supplier_id:
