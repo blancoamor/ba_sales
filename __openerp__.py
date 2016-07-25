@@ -6,7 +6,8 @@
     'data': [
 	#'security/ir.model.access.csv',
 	#'security/security.xml',
-	'ba_data.xml'
+	'sale_view.xml',
+	'ba_data.xml',
     ],
     'demo': [
     ],

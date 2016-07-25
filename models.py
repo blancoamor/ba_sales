@@ -25,3 +25,14 @@ class sale_order(models.Model):
 			if (difference.seconds / 60) > 30:
 				# Cancels order
 				order.action_cancel()
+
+
+class product_product(models.Model):
+	_inherit = 'product.product'
+
+	@api.one
+	def _compute_supplier_id(self):
+		if self.product_tmpl_id.seller_ids:
+			self.supplier_id = self.product_tmpl_id.seller_ids[0]
+
+	supplier_id = fields.Many2one('res.partner',string='Proveedor Principal',compute=_compute_supplier_id)
