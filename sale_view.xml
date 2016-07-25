@@ -25,6 +25,30 @@
             </field>
         </record>
 
+        <record id="view_product_template_tree" model="ir.ui.view">
+            <field name="name">product.template.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Precios Blancoamor" editable="bottom">
+                    <field name="default_code" readonly="1"/>
+                    <field name="name" readonly="1"/>
+                    <field name="list_price"/>
+                    <field name="standard_price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ba_prices" model="ir.actions.act_window">
+            <field name="name">Precios</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_product_template_tree"/>
+        </record>
+
+
+        <menuitem id="menu_ba_prices" name="Precios" parent="base.menu_product" sequence="12"
+                action="action_ba_prices" />
 
     </data>
 </openerp>
