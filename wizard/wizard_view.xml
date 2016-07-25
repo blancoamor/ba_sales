@@ -6,12 +6,16 @@
 			<field name="model">product.update.prices</field>
 			<field name="arch" type="xml">
 				<form string="Actualizar Precios/Costos">
-					<group>
+					<group string="Parametros">
 						<field name="categ_id" />
 						<field name="product_id" />
 						<field name="supplier_id" />
 					</group>
-					<button name="create_ticket_claim" type="object" string="Create" /> 
+					<group string="Porcentajes">
+						<field name="list_price_update" />
+						<field name="cost_price_update" />
+					</group>
+					<button name="update_costs" type="object" string="Actualizar" /> 
 				</form>
 			</field>
 		</record>
