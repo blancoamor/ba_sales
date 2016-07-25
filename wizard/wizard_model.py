@@ -27,7 +27,6 @@ class product_update_prices(models.TransientModel):
 		if self.cost_price_update < 0 or self.cost_price_update > 100:
 			raise ValidationError("El costo a ingresar solo puede ser aumentando entre un 0% y 100%")
 		domain = []
-		import pdb;pdb.set_trace()
 		if self.categ_id:
 			domain.append(('categ_id','=',self.categ_id.id))
 		if self.supplier_id:
@@ -40,8 +39,8 @@ class product_update_prices(models.TransientModel):
 			lst_price = product.list_price
 			vals = {}
 			if self.list_price_update > 0:
-				vals['lst_price'] = lst_price * ( 1 + self.list_price_update )
+				vals['lst_price'] = lst_price * ( 1 + (self.list_price_update/100.00) )
 			if self.cost_price_update > 0:
-				vals['standard_price'] = cost * ( 1 + self.cost_price_update )
+				vals['standard_price'] = cost * ( 1 + (self.cost_price_update/100.00) )
 			product.write(vals)
 		return None
