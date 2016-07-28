@@ -46,9 +46,25 @@
             <field name="view_id" ref="view_product_template_tree"/>
         </record>
 
+        <record id="action_ba_cuotas_config" model="ir.actions.act_window">
+            <field name="name">Cuotas</field>
+            <field name="res_model">sale.cuotas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
 
         <menuitem id="menu_ba_prices" name="Precios" parent="base.menu_product" sequence="12"
                 action="action_ba_prices" />
+
+        <menuitem id="menu_ba_sales_config" name="Blancoamor" 
+            parent="base.menu_base_config" sequence="100"/>
+
+        <menuitem id="menu_ba_sales_cuotas" name="Cuotas" 
+            parent="menu_ba_sales_config" 
+	    action="action_ba_cuotas_config"
+	    sequence="100"/>
+
 
     </data>
 </openerp>
