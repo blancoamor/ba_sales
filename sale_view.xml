@@ -51,7 +51,8 @@
             <field name="model">sale.cuotas</field>
             <field name="arch" type="xml">
                 <form string="Monto por Cuotas">
-			<group string="Tipo de pago y producto a agregar"
+			<group string="Tipo de pago y producto a agregar">
+		    	    <field name="name" />
 	                    <field name="journal_id"/>
         	            <field name="product_id"/>
 			</group>
@@ -59,7 +60,7 @@
 		                 <field name="cuotas"/>
         	            <field name="monto"/>
 			</group>
-                </tree>
+                </form>
             </field>
         </record>
 
@@ -68,6 +69,7 @@
             <field name="model">sale.cuotas</field>
             <field name="arch" type="xml">
                 <tree string="Monto por Cuotas">
+		    <field name="name" />
                     <field name="journal_id"/>
                     <field name="product_id"/>
                     <field name="cuotas"/>
@@ -95,6 +97,19 @@
             parent="menu_ba_sales_config" 
 	    action="action_ba_cuotas_config"
 	    sequence="100"/>
+
+        <record id="view_sale_order_form_ba" model="ir.ui.view">
+            <field name="name">sale.order.form.ba</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <button name="action_view_invoice" position="after">
+                        <button name="add_cuotas" type="object" string="Agregar cuotas"
+                                states="draft" />
+                </button>
+            </field>
+        </record>
+
 
 
     </data>

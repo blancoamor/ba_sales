@@ -16,6 +16,10 @@ class sale_order(models.Model):
 	_inherit = 'sale.order'
 
 	@api.model
+	def add_cuotas(self):
+		import pdb;pdb.set_trace()
+
+	@api.model
 	def _cancel_sale_orders(self):
 		orders = self.search([('state','=','draft')])
 		for order in orders:

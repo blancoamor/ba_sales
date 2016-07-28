@@ -9,6 +9,11 @@ import ast
 #Get the logger
 _logger = logging.getLogger(__name__)
 
+class add_sale_order_cuotas(models.TransientModel):
+	_name = 'add.sale.order.cuotas'
+
+	sale_cuotas_id = fields.Many2one('sale.cuotas')
+
 class product_update_prices(models.TransientModel):
 	_name = 'product.update.prices'
 
