@@ -2,7 +2,7 @@
     'name': 'Blancoamor - Sales Customization',
     'category': 'Sales',
     'version': '0.1',
-    'depends': ['base','product','sale'],
+    'depends': ['base','product','sale','account'],
     'data': [
 	#'security/ir.model.access.csv',
 	#'security/security.xml',
