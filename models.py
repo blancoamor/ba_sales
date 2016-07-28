@@ -41,3 +41,12 @@ class product_pricelist_item(models.Model):
 	_inherit = 'product.pricelist.item'
 
 	supplier_id = fields.Many2one('res.partner',string='Proveedor',domain=[('supplier','=',True)])
+
+class sale_cuotas(models.Model):
+	_name = 'sale.cuotas'
+	_description = 'Permite indicar que monto agregar por cobro en cuotas'
+
+	journal_id = fields.Many2one('account.journal',string='Diario')
+	cuotas = fields.Integer(string='Cuotas')
+	product_id = fields.Many2one('product.product',string='Producto')
+	monto = fields.Float(string='Monto')
