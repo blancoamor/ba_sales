@@ -46,7 +46,8 @@ class sale_cuotas(models.Model):
 	_name = 'sale.cuotas'
 	_description = 'Permite indicar que monto agregar por cobro en cuotas'
 
-	journal_id = fields.Many2one('account.journal',string='Diario')
+	name = fields.Char('Nombre')
+	journal_id = fields.Many2one('account.journal',string='Diario',domain=[('type','in',('cash','banks'))])
 	cuotas = fields.Integer(string='Cuotas')
 	product_id = fields.Many2one('product.product',string='Producto')
 	monto = fields.Float(string='Monto')
