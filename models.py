@@ -15,11 +15,11 @@ _logger = logging.getLogger(__name__)
 class sale_order(models.Model):
 	_inherit = 'sale.order'
 
-	@api.model
+	@api.multi
 	def add_cuotas(self):
 		return {'type': 'ir.actions.act_window',
                         'name': 'Agregar cuotas',
-                       'res_model': 'add.sale.order.cuotas',
+                        'res_model': 'add.sale.order.cuotas',
                         'view_type': 'form',
                         'view_mode': 'form',
                         #'view_id': view_id,

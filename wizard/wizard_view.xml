@@ -34,6 +34,18 @@
                 parent="base.menu_product"
                 sequence="15"/>
 
+	<record id="ba_product_update_prices" model="ir.ui.view">
+		<field name="name">Actualizar Precios/Costos</field>
+		<field name="model">add.sale.order.cuotas</field>
+		<field name="arch" type="xml">
+			<form string="Actualizar Precios/Costos">
+				<group string="Parametros">
+					<field name="sale_cuotas_id" />
+				</group>
+				<!-- button name="update_costs" type="object" string="Actualizar" / --> 
+			</form>
+		</field>
+            </record>
 
 
 	</data>
