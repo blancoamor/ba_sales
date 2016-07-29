@@ -12,8 +12,30 @@ _logger = logging.getLogger(__name__)
 class add_sale_order_cuotas(models.TransientModel):
 	_name = 'add.sale.order.cuotas'
 
-	sale_cuotas_id = fields.Many2one('sale.cuotas')
+	sale_cuotas_id = fields.Many2one('sale.cuotas',required=True)
 
+	@api.multi
+	def insert_cuotas(self):
+		if not self.sale_cuotas_id:
+			raise ValidationError('Por favor, seleccione una cuota')
+
+		order_id = self.env.context['active_id']
+		order = self.env['sale.order'].browse(order_id)
+		if order:
+			for line in order.order_line:
+				cuota_id = self.env['sale.cuotas'].search([('product_id','=',line.product_id.id)])
+				if cuota_id:
+					line.unlink()
+			vals_line = {
+				'product_id': self.sale_cuotas_id.product_id.id,
+				'name': self.sale_cuotas_id.name,
+				'price_unit': self.sale_cuotas_id.monto,
+				'product_uom_qty': 1,
+				'order_id': order_id
+				}
+			order_line = self.env['sale.order.line'].create(vals_line)
+		return None
+	
 class product_update_prices(models.TransientModel):
 	_name = 'product.update.prices'
 

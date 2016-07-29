@@ -42,7 +42,7 @@
 				<group string="Parametros">
 					<field name="sale_cuotas_id" />
 				</group>
-				<!-- button name="update_costs" type="object" string="Actualizar" / --> 
+				<button name="insert_cuotas" type="object" string="Agregar Cuotas" /> 
 			</form>
 		</field>
             </record>
