@@ -17,7 +17,17 @@ class sale_order(models.Model):
 
 	@api.model
 	def add_cuotas(self):
-		import pdb;pdb.set_trace()
+		return {'type': 'ir.actions.act_window',
+                        'name': 'Agregar cuotas',
+                       'res_model': 'add.sale.order.cuotas',
+                        'view_type': 'form',
+                        'view_mode': 'form',
+                        #'view_id': view_id,
+                        'target': 'new',
+                        'nodestroy': True,
+                        }
+
+
 
 	@api.model
 	def _cancel_sale_orders(self):
